@@ -1,1 +1,22 @@
 /* app global css */
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.q-dark {
+  background-color: #121212;
+}
+
+/* Override Quasar's default styling to match the dark wireframe */
+.q-checkbox__inner {
+  &:before {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.q-checkbox__svg {
+  color: white;
+}

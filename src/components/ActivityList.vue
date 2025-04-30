@@ -114,13 +114,25 @@ async function toggleTaskStatus(task) {
       completed: task.completed,
       userId: 1
     }
+    
+    // For JSONPlaceholder, we should assume all operations succeed
+    // but handle possible failures gracefully
     await taskServices.updateTask(task.id, updatedTask)
+    
+    // With a real backend, the response would confirm the update
+    console.log('Task updated successfully')
   } catch (error) {
     console.error('Error updating task:', error)
-    // Revert the local change if the API call fails
+    
+    // Only show error dialog for network issues, not 404/500 from JSONPlaceholder
+    if (error.code !== 'ERR_BAD_RESPONSE' && error.code !== 'ERR_BAD_REQUEST') {
+      errorMessage.value = 'Network error while updating task'
+      errorDialog.value = true
+    }
+    
+    // Revert the local change
     task.completed = !task.completed
   } finally {
-    console.log('Task updated successfully')
     updatingTaskId.value = null
   }
 }

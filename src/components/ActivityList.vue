@@ -99,6 +99,12 @@ async function fetchTasks() {
   }
 }
 
+// Method to add a new task to the list directly
+function addNewTask(task) {
+  // Add the new task to the beginning of the array to show it first
+  tasks.value.unshift(task)
+}
+
 async function toggleTaskStatus(task) {
   updatingTaskId.value = task.id
   try {
@@ -138,7 +144,7 @@ onMounted(() => {
 })
 
 // Expose methods to parent component
-defineExpose({ fetchTasks })
+defineExpose({ fetchTasks, addNewTask })
 </script>
 
 <style scoped>

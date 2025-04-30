@@ -52,13 +52,14 @@ async function addTask() {
     
     const response = await taskServices.addTask(newTask)
     
-    // Map the API response to your app's format
+    // Make sure we're passing the correct format that ActivityList expects
     const addedTask = {
       id: response.data.id,
       text: response.data.title,
       completed: response.data.completed
     }
     
+    // Emit the task-added event with the newly created task
     emit('task-added', addedTask)
     taskText.value = ''
     
